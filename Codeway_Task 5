@@ -1,0 +1,75 @@
+#a simple example of a quiz game in Python
+import random
+
+def load_quiz_questions():
+    questions = [
+        {
+            'question': 'What is the capital of France?',
+            'choices': ['Berlin', 'Paris', 'Madrid', 'Rome'],
+            'correct_answer': 'Paris'
+        },
+        {
+            'question': 'Which planet is known as the Red Planet?',
+            'choices': ['Mars', 'Venus', 'Jupiter', 'Saturn'],
+            'correct_answer': 'Mars'
+        },
+        {
+            'question': 'What is the largest mammal?',
+            'choices': ['Elephant', 'Blue Whale', 'Giraffe', 'Hippopotamus'],
+            'correct_answer': 'Blue Whale'
+        }
+       
+    ]
+    return questions
+
+def display_welcome_message():
+    print("Welcome to the Quiz Game!")
+    print("Answer the following questions and test your knowledge.\n")
+
+def present_quiz_question(question):
+    print(question['question'])
+    for i, choice in enumerate(question['choices'], start=1):
+        print(f"{i}. {choice}")
+    user_answer = input("Your answer (enter the number): ")
+    return user_answer
+
+def evaluate_user_answer(user_answer, correct_answer):
+    return user_answer.lower() == correct_answer.lower()
+
+def play_quiz():
+    questions = load_quiz_questions()
+    score = 0
+
+    while questions:
+        random_question = random.choice(questions)
+        user_answer = present_quiz_question(random_question)
+
+        if evaluate_user_answer(user_answer, random_question['correct_answer']):
+            print("Correct!")
+            score += 1
+        else:
+            print(f"Incorrect! The correct answer is: {random_question['correct_answer']}")
+
+        questions.remove(random_question)
+        print("\n")
+
+    return score
+
+def display_final_results(score):
+    print(f"Your final score is: {score}")
+
+def play_again():
+    return input("Do you want to play again? (yes/no): ").lower() == 'yes'
+
+def main():
+    while True:
+        display_welcome_message()
+        final_score = play_quiz()
+        display_final_results(final_score)
+
+        if not play_again():
+            print("Thanks for playing! Goodbye!")
+            break
+
+if __name__ == "__main__":
+    main()
