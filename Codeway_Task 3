@@ -1,4 +1,4 @@
-#A password generator is a useful tool that generates strong and random passwords
+#A password generator is a useful tool that generates strong and random passwords.
 import random
 import string
 
